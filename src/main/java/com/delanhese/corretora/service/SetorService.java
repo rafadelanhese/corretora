@@ -15,20 +15,39 @@ import org.springframework.stereotype.Service;
 @Service
 public class SetorService {
 
+    private SetorRepository repository;
+
     @Autowired
-    private SetorRepository setorRepository;
-
-    public List<Setor> findAll(){
-        return setorRepository.findAll();
+    public SetorService(SetorRepository repository) {
+        this.repository = repository;
     }
 
-    public ResponseEntity<Setor> findById(Long id){
-        return setorRepository.findById(id)
-        .map(record -> ResponseEntity.ok().body(record))
-        .orElse(ResponseEntity.notFound().build());
+    public Setor save(Setor setor) {
+        return repository.save(setor);
     }
 
-    public void save(Setor setor){
-        setorRepository.save(setor);
+    public List<Setor> findAll() {
+        return repository.findAll();
+    }
+
+    public ResponseEntity<?> update(Long id, Setor setor) {
+        return repository.findById(id).map(record -> {
+            record.setNome(setor.getNome());
+            Setor setorUpdated = repository.save(record);
+            return ResponseEntity.ok().body(setorUpdated);
+        }).orElse(ResponseEntity.notFound().build());
+    }
+
+    public ResponseEntity<?> delete(Long id) {
+        return repository.findById(id)
+                .map(record -> {
+                    repository.deleteById(id);
+                    return ResponseEntity.ok().build();
+                }).orElse(ResponseEntity.notFound().build());
+     }
+
+    public ResponseEntity<?> findById(Long id) {
+        return repository.findById(id).map(record -> ResponseEntity.ok().body(record))
+                .orElse(ResponseEntity.notFound().build());
     }
 }
