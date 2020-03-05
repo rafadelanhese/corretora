@@ -4,32 +4,46 @@ import java.util.List;
 
 import com.delanhese.corretora.model.Setor;
 import com.delanhese.corretora.repository.SetorRepository;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import lombok.AllArgsConstructor;
 
 /**
  * SetorService
  */
 @Service
-@AllArgsConstructor
-public class SetorServiceImpl implements SetorService{
+public class SetorServiceImpl implements SetorService {
 
-    private final SetorRepository repository;  
+    private final SetorRepository repository;
 
-    @Override
-    public Setor save(Setor setor) {
-        return repository.save(setor);
+    public SetorServiceImpl(SetorRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public List<Setor> findAll() {
-        return repository.findAll();
+    public ResponseEntity<Setor> findById(Long id) {
+        return repository.findById(id).map(record -> ResponseEntity.ok().body(record))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @Override
-    public ResponseEntity<?> update(Long id, Setor setor) {
+    public ResponseEntity<Setor> save(Setor setor) {
+        try {
+            repository.save(setor);
+            return ResponseEntity.ok().body(setor);
+        } catch (Exception e) {
+            System.out.println("Erro ao salvar: " + e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @Override
+    public ResponseEntity<List<Setor>> findAll() {
+        return ResponseEntity.ok().body(repository.findAll());
+    }
+
+    @Override
+    public ResponseEntity<Setor> update(Long id, Setor setor) {
         return repository.findById(id).map(record -> {
             record.setNome(setor.getNome());
             Setor setorUpdated = repository.save(record);
@@ -39,16 +53,9 @@ public class SetorServiceImpl implements SetorService{
 
     @Override
     public ResponseEntity<?> delete(Long id) {
-        return repository.findById(id)
-                .map(record -> {
-                    repository.deleteById(id);
-                    return ResponseEntity.ok().build();
-                }).orElse(ResponseEntity.notFound().build());
-     }
-
-    @Override
-    public ResponseEntity<?> findById(Long id) {
-        return repository.findById(id).map(record -> ResponseEntity.ok().body(record))
-                .orElse(ResponseEntity.notFound().build());
+        return repository.findById(id).map(record -> {
+            repository.deleteById(id);
+            return ResponseEntity.ok().build();
+        }).orElse(ResponseEntity.notFound().build());
     }
 }

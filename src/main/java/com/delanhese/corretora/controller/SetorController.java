@@ -1,11 +1,14 @@
 package com.delanhese.corretora.controller;
 
+import java.net.URI;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import com.delanhese.corretora.model.Setor;
 import com.delanhese.corretora.service.SetorService;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,29 +27,28 @@ import org.springframework.web.bind.annotation.RestController;
 public class SetorController {
 
     private SetorService setorService;
-    
-    @Autowired
-    public SetorController(SetorService setorService){
+
+    public SetorController(SetorService setorService) {
         this.setorService = setorService;
     }
 
-    @PostMapping
-    public Setor create(@RequestBody Setor setor) {
-        return setorService.save(setor);
-    }
-
-    @GetMapping
-    public List<Setor> setores() {
-        return setorService.findAll();
-    }
-
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id) {
+    @GetMapping(path = "/{id}", produces = "application/json")
+    public ResponseEntity<Setor> findById(@PathVariable Long id) {
         return setorService.findById(id);
     }
 
+    @PostMapping
+    public ResponseEntity<Setor> create(@RequestBody @Valid Setor setor) {
+        return setorService.save(setor);
+    }
+
+    @GetMapping(produces = "application/json")
+    public ResponseEntity<List<Setor>> findAll() {
+        return setorService.findAll();
+    }
+
     @PutMapping(value = "/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody Setor setor) {
+    public ResponseEntity<Setor> update(@PathVariable("id") Long id, @RequestBody Setor setor) {
         return setorService.update(id, setor);
     }
 
@@ -54,4 +56,5 @@ public class SetorController {
     public ResponseEntity<?> delete(@PathVariable Long id) {
         return setorService.delete(id);
     }
+
 }

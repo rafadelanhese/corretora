@@ -11,10 +11,9 @@ import org.springframework.http.ResponseEntity;
  */
 public interface SetorService {
     
-    List<Setor> findAll();
-    Setor save(Setor setor);
-    ResponseEntity<?> findById(Long id);
-    ResponseEntity<?> update(Long id, Setor setor);
-    ResponseEntity<?> delete(Long id);    
-    
+    ResponseEntity<List<Setor>> findAll();
+    ResponseEntity<Setor> save(Setor setor);
+    ResponseEntity<Setor> findById(Long id);   
+    ResponseEntity<Setor> update(Long id, Setor setor);
+    ResponseEntity<?> delete(Long id);        
 }
