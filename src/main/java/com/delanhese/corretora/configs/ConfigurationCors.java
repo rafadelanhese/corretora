@@ -1,20 +1,24 @@
 package com.delanhese.corretora.configs;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * ConfigurationCors
  */
 @Configuration
-@EnableWebMvc
-public class ConfigurationCors implements WebMvcConfigurer {
+public class ConfigurationCors{
     
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("setor");
-    }
+    @Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/setor").allowedOrigins("http://localhost:4200");
+			}
+		};
+	}
 
 }

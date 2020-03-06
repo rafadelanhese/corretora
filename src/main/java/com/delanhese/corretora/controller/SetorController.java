@@ -8,6 +8,7 @@ import com.delanhese.corretora.model.Setor;
 import com.delanhese.corretora.service.SetorService;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,7 +41,7 @@ public class SetorController {
         return setorService.save(setor);
     }
      
-    @GetMapping
+    @GetMapping    
     public ResponseEntity<List<Setor>> findAll() {
         return setorService.findAll();
     }
