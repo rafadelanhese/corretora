@@ -1,6 +1,5 @@
 package com.delanhese.corretora.controller;
 
-import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -8,7 +7,6 @@ import javax.validation.Valid;
 import com.delanhese.corretora.model.Setor;
 import com.delanhese.corretora.service.SetorService;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,8 +39,8 @@ public class SetorController {
     public ResponseEntity<Setor> create(@RequestBody @Valid Setor setor) {
         return setorService.save(setor);
     }
-
-    @GetMapping(produces = "application/json")
+     
+    @GetMapping
     public ResponseEntity<List<Setor>> findAll() {
         return setorService.findAll();
     }
