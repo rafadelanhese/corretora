@@ -26,12 +26,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class SetorController {
 
     private SetorService setorService;
+    private final String PATH_ID = "/{id}";
 
     public SetorController(SetorService setorService) {
         this.setorService = setorService;
     }
 
-    @GetMapping(path = "/{id}", produces = "application/json")
+    @GetMapping(path = PATH_ID, produces = "application/json")
     public ResponseEntity<Setor> findById(@PathVariable Long id) {
         return setorService.findById(id);
     }
@@ -46,12 +47,12 @@ public class SetorController {
         return setorService.findAll();
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = PATH_ID)
     public ResponseEntity<Setor> update(@PathVariable("id") Long id, @RequestBody Setor setor) {
         return setorService.update(id, setor);
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = PATH_ID)
     public ResponseEntity<?> delete(@PathVariable Long id) {
         return setorService.delete(id);
     }

@@ -11,7 +11,9 @@ import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Setor
@@ -22,17 +24,16 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class Setor implements Serializable{
 
     private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idSetor;
+    @Getter private Long idSetor;
 
     @NotNull
     @NotEmpty
-    private String nome;   
+    @Getter @Setter private String nome;   
     
 }

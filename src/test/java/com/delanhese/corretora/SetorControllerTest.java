@@ -26,8 +26,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @WebMvcTest(SetorController.class)
 public class SetorControllerTest {
 
-    private final String BASE_URL = "/setor";
+   /* private final String BASE_URL = "/setor";
     private final String CAMPO_REQUISITADO = "$.idSetor";
+    private final String CAMPO_ID_SETOR = "/{id}";
     private final int ID_SETOR = 1;
     private final int VALOR_ESPERADO = 1;
 
@@ -53,13 +54,12 @@ public class SetorControllerTest {
 
     @Test
     public void testGETSetorFindById() throws Exception {
-
-        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "/{id}", ID_SETOR).accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + CAMPO_ID_SETOR, ID_SETOR).accept(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print()).andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath(CAMPO_REQUISITADO).value(VALOR_ESPERADO));
     }
 
-   /* @Test 
+    @Test 
      public void testPOSTSetorCreate() throws Exception {
        
         when(mockService.save(any(Setor.class))).thenReturn(value)
@@ -71,12 +71,12 @@ public class SetorControllerTest {
        .andExpect(jsonPath("$.idSetor").value("12345")) 
        .andExpect(jsonPath("$.nome").value("Teste"))
        .andDo(print());    
-      }*/
+      }
 
     @Test
     public void testDELETESetor() throws Exception {
         // TESTA SE O RETORNO É STATUS 200
-        this.mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL + "/{id}", ID_SETOR)).andExpect(status().isOk());
-    }
+        this.mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL + CAMPO_ID_SETOR, ID_SETOR)).andExpect(status().isOk());
+    }*/
 
 }
