@@ -1,61 +1,81 @@
 package com.delanhese.corretora.service;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.xml.ws.Response;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import com.delanhese.corretora.model.Setor;
 import com.delanhese.corretora.repository.SetorRepository;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-
-/**
- * SetorService
- */
 @Service
-public class SetorServiceImpl implements SetorService {
+public class SetorServiceImpl implements ISetorService{
 
-    private final SetorRepository repository;
+	@Autowired
+	private SetorRepository setorRepository;
+	
+	
+	@Override
+	public ResponseEntity<List<Setor>> findAll() {
+		try {
+		  List<Setor> lista = setorRepository.findAll();
 
-    public SetorServiceImpl(SetorRepository repository) {
-        this.repository = repository;
-    }
+	      if (lista.isEmpty()) {	        
+	        return ResponseEntity.noContent().build();
+	      }
+	      return ResponseEntity.ok().body(lista);
+	      
+	    } catch (Exception e) {	    	
+	    	return ResponseEntity.notFound().build();
+	    }
+	}
 
-    @Override
-    public ResponseEntity<Setor> findById(Long id) {
-        return repository.findById(id).map(record -> ResponseEntity.ok().body(record))
-                .orElse(ResponseEntity.notFound().build());
-    }
+	@Override
+	public ResponseEntity<?> save(Setor setor) {
+		try {
+			setorRepository.save(setor);
+			return ResponseEntity.ok().build();
+		}catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}		
+	}
+	
+	@Override
+	public ResponseEntity<Setor> update(Long id, Setor setor) {
+		 return setorRepository.findById(id)
+		           .map(record -> {
+		               record.setNome(setor.getNome());		               
+		               Setor updated = setorRepository.save(record);
+		               return ResponseEntity.ok().body(updated);
+		           }).orElse(ResponseEntity.notFound().build());
+	}
 
-    @Override
-    public ResponseEntity<Setor> save(Setor setor) {
-        try {
-            repository.save(setor);
-            return ResponseEntity.ok().body(setor);
-        } catch (Exception e) {
-            System.out.println("Erro ao salvar: " + e.getMessage());
-            return ResponseEntity.notFound().build();
-        }
-    }
+	@Override
+	public ResponseEntity<Setor> findById(Long id) {
+		return setorRepository.findById(id)
+			   .map(record -> ResponseEntity.ok().body(record))
+			   .orElse(ResponseEntity.notFound().build());
+	}
 
-    @Override
-    public ResponseEntity<List<Setor>> findAll() {
-        return ResponseEntity.ok().body(repository.findAll());
-    }
 
-    @Override
-    public ResponseEntity<Setor> update(Long id, Setor setor) {
-        return repository.findById(id).map(record -> {
-            record.setNome(setor.getNome());
-            Setor setorUpdated = repository.save(record);
-            return ResponseEntity.ok().body(setorUpdated);
-        }).orElse(ResponseEntity.notFound().build());
-    }
+	@Override
+	public ResponseEntity<?> delete(Long id) {
+		return setorRepository.findById(id)
+				.map(record -> {
+		        	   setorRepository.deleteById(id);
+		               return ResponseEntity.ok().build();
+		           }).orElse(ResponseEntity.notFound().build());
+	}
 
-    @Override
-    public ResponseEntity<?> delete(Long id) {
-        return repository.findById(id).map(record -> {
-            repository.deleteById(id);
-            return ResponseEntity.ok().build();
-        }).orElse(ResponseEntity.notFound().build());
-    }
+	public boolean exists(Setor setor) {	
+		Example<Setor> example = Example.of(setor);
+		return setorRepository.exists(example);
+	}
+	
 }

@@ -22,18 +22,41 @@ import lombok.Setter;
  * Data: cria automaticamente os métodos toString, equals, hashCode, getters e setters.
  */
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 public class Setor implements Serializable{
 
     private static final long serialVersionUID = 1L;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter private Long idSetor;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long idSetor;
 
     @NotNull
     @NotEmpty
-    @Getter @Setter private String nome;   
+    private String nome;
+
+    
+    public Setor() {
+    	
+    }
+    
+    
+    public Setor(Long idSetor, @NotNull @NotEmpty String nome) {
+		super();
+		this.idSetor = idSetor;
+		this.nome = nome;
+	}
+
+	
+	public Long getIdSetor() {
+		return idSetor;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
     
 }

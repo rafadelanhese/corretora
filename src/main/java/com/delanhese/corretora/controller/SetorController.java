@@ -1,11 +1,12 @@
 package com.delanhese.corretora.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import com.delanhese.corretora.model.Setor;
-import com.delanhese.corretora.service.SetorService;
+import com.delanhese.corretora.service.SetorServiceImpl;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,10 +25,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/setor")
 public class SetorController {
 
-    private SetorService setorService;
+    private SetorServiceImpl setorService;
     private final String PATH_ID = "/{id}";
 
-    public SetorController(SetorService setorService) {
+    public SetorController(SetorServiceImpl setorService) {
         this.setorService = setorService;
     }
 
@@ -37,7 +38,7 @@ public class SetorController {
     }
 
     @PostMapping
-    public ResponseEntity<Setor> create(@RequestBody @Valid Setor setor) {
+    public ResponseEntity<?> create(@RequestBody @Valid Setor setor) {
         return setorService.save(setor);
     }
      
@@ -48,7 +49,7 @@ public class SetorController {
 
     @PutMapping(value = PATH_ID)
     public ResponseEntity<Setor> update(@PathVariable("id") Long id, @RequestBody Setor setor) {
-        return setorService.update(id, setor);
+       return setorService.update(id, setor);
     }
 
     @DeleteMapping(path = PATH_ID)
