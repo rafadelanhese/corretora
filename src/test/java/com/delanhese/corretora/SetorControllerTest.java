@@ -2,9 +2,11 @@ package com.delanhese.corretora;
 
 import com.delanhese.corretora.controller.SetorController;
 import com.delanhese.corretora.model.Setor;
+import com.delanhese.corretora.repository.SetorRepository;
 import com.delanhese.corretora.service.SetorServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -55,7 +57,7 @@ public class SetorControllerTest {
 	private MockMvc mockMvc;
 
 	@MockBean
-    private SetorServiceImpl setorService;
+    private SetorServiceImpl setorService;	
 
     @InjectMocks
     private SetorController setorController;
@@ -67,10 +69,10 @@ public class SetorControllerTest {
                 .standaloneSetup(setorController)
                 .addFilters(new CorsFilter())
                 .build();
-    }
+    }      
     
     @Test
-    public void testGetAllSuccess() throws Exception {
+    public void testGETAllSuccess() throws Exception {
         List<Setor> setores = Arrays.asList(new Setor(1L, "Híbrido"), new Setor(2L, "Papel"));
         
         ResponseEntity<List<Setor>> listaSetoresEsperado = new ResponseEntity(setores, HttpStatus.OK);        
@@ -89,7 +91,7 @@ public class SetorControllerTest {
     }
     
     @Test
-    public void testGetByIdSuccess() throws Exception {
+    public void testGETByIdSuccess() throws Exception {
         Setor setor = new Setor(1L, "Híbrido");
 
         ResponseEntity<Setor> setorEsperado = new ResponseEntity(setor, HttpStatus.OK);
@@ -107,7 +109,7 @@ public class SetorControllerTest {
     }
     
     @Test
-    public void testCreateSetorSuccess() throws Exception {
+    public void testPOSTSetorSuccess() throws Exception {
         Setor setor = new Setor(null, "Tijolo");
 
         when(setorService.exists(setor)).thenReturn(false);
@@ -126,7 +128,7 @@ public class SetorControllerTest {
     }
     
     @Test
-    public void testUpdateSetorSuccess() throws Exception {
+    public void testPUTSetorSuccess() throws Exception {
     	Setor setor = new Setor(1L, "Híbrido Alterado");
     	
     	ResponseEntity<Setor> reSetor = new ResponseEntity(setor, HttpStatus.OK);

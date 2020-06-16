@@ -15,12 +15,13 @@ public class CorretoraApplication {
 		SpringApplication.run(CorretoraApplication.class, args);
 	}
 	
-	/*@Bean
+	@Bean
     CommandLineRunner init(SetorRepository repository) {
+		repository.deleteAll();
 		repository.save(new Setor(null,"Híbrido"));
 		repository.save(new Setor(null, "Papel"));
 		return null;
         
-    }*/
+    }
 	
 }
