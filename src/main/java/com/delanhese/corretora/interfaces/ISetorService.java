@@ -1,4 +1,4 @@
-package com.delanhese.corretora.service;
+package com.delanhese.corretora.interfaces;
 
 import java.util.List;
 

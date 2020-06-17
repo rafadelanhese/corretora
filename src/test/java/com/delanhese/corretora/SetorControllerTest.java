@@ -55,6 +55,12 @@ public class SetorControllerTest {
     @InjectMocks
     private SetorController setorController;
 
+    private final String URL_LOCALHOST = "http://localhost:8080/setor/";
+
+    private final String SETOR = "/setor";
+
+    private final String ID = "/{id}";
+
     @Before
     public void init(){
         MockitoAnnotations.initMocks(this);
@@ -68,10 +74,10 @@ public class SetorControllerTest {
     public void testGETAllSuccess() throws Exception {
         List<Setor> setores = Arrays.asList(new Setor(1L, "Híbrido"), new Setor(2L, "Papel"));
         
-        ResponseEntity<List<Setor>> listaSetoresEsperado = new ResponseEntity(setores, HttpStatus.OK);        
+        ResponseEntity<List<Setor>> listaSetoresEsperado = new ResponseEntity<List<Setor>>(setores, HttpStatus.OK);        
         
         when(setorService.findAll()).thenReturn(listaSetoresEsperado);
-        mockMvc.perform(get("/setor"))
+        mockMvc.perform(get(SETOR))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -87,11 +93,11 @@ public class SetorControllerTest {
     public void testGETByIdSuccess() throws Exception {
         Setor setor = new Setor(1L, "Híbrido");
 
-        ResponseEntity<Setor> setorEsperado = new ResponseEntity(setor, HttpStatus.OK);
+        ResponseEntity<Setor> setorEsperado = new ResponseEntity<Setor>(setor, HttpStatus.OK);
         
         when(setorService.findById(1L)).thenReturn(setorEsperado);       
         
-        mockMvc.perform(get("/setor/{id}", 1))
+        mockMvc.perform(get(SETOR + ID, 1))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.idSetor", is(setorEsperado.getBody().getIdSetor().intValue())))
@@ -109,11 +115,11 @@ public class SetorControllerTest {
         doReturn(false).when(setorService).save(setor);
 
         mockMvc.perform(
-                post("/setor")
+                post(SETOR)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(setor)))
                 .andExpect(status().isCreated())
-                .andExpect(header().string("location", containsString("http://localhost:8080/setor/")));
+                .andExpect(header().string("location", containsString(URL_LOCALHOST + SETOR)));
 
         verify(setorService, times(1)).exists(setor);
         verify(setorService, times(1)).save(setor);
@@ -124,13 +130,13 @@ public class SetorControllerTest {
     public void testPUTSetorSuccess() throws Exception {
     	Setor setor = new Setor(1L, "Híbrido Alterado");
     	
-    	ResponseEntity<Setor> reSetor = new ResponseEntity(setor, HttpStatus.OK);
+    	ResponseEntity<Setor> reSetor = new ResponseEntity<Setor>(setor, HttpStatus.OK);
     	
         //when(setorService.findById(setor.getIdSetor())).thenReturn(reSetor);
         when(setorService.update(setor.getIdSetor(), setor)).thenReturn(reSetor);
 
         mockMvc.perform(
-                put("/setor/{id}", setor.getIdSetor())
+                put(SETOR + ID, setor.getIdSetor())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(reSetor)))
                 .andExpect(status().isOk());

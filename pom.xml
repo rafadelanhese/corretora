@@ -78,32 +78,32 @@
             <id>dev</id>
             <properties>
                 <activatedProperties>dev</activatedProperties>
-            </properties>            
+            </properties>
         </profile>
         <profile>
             <id>prod</id>
             <properties>
                 <activatedProperties>prod</activatedProperties>
-            </properties>            
+            </properties>
         </profile>
     </profiles>
-    
-    <configuration>
-        <annotationProcessorPaths>
-            <path>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.18.12</version>
-            </path>
-        </annotationProcessorPaths>
-    </configuration>
+
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+                <configuration>
+                <annotationProcessorPaths>
+                    <path>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok</artifactId>
+                        <version>1.18.12</version>
+                    </path>
+                </annotationProcessorPaths>
+            </configuration>
+            </plugin>            
         </plugins>
     </build>
 

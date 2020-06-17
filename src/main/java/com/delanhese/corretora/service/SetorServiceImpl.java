@@ -7,6 +7,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.delanhese.corretora.interfaces.ISetorService;
 import com.delanhese.corretora.model.Setor;
 import com.delanhese.corretora.repository.SetorRepository;
 
