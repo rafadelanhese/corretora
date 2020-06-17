@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,7 +32,8 @@ public class Setor implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter private Long idSetor;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "{nome.not.null}")
+    @NotEmpty(message = "{nome.not.empty}")
+    @Size(min=4,max=20,message="{nome.size}")
     @Getter @Setter String nome;      
 }

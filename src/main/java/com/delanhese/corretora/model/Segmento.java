@@ -26,8 +26,8 @@ public class Segmento implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter private Long idSegmento;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "{nome.not.null}")
+    @NotEmpty(message = "{nome.not.empty}")
     @Getter @Setter String nome;      
     
 }

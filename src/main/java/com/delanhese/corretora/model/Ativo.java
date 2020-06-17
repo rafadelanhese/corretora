@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,17 +25,17 @@ public abstract class Ativo implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter private Long idSetor;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "{nomePregao.not.null}")
+    @NotEmpty(message = "{nomePregao.not.empty}")
     private String nomePregao;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "{ticker.not.null}")
+    @NotEmpty(message = "{ticker.not.empty}")
+    @Size(min=4,max=4, message="{ticker.size}")
     private String ticker;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "{segmento.not.null}")
+    @NotEmpty(message = "{segmento.not.empty}")
     private Segmento segmento;
-
     
 }
