@@ -1,7 +1,6 @@
 package com.delanhese.corretora.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 

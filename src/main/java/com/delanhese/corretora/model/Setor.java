@@ -10,7 +10,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,41 +21,17 @@ import lombok.Setter;
  * Data: cria automaticamente os métodos toString, equals, hashCode, getters e setters.
  */
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Setor implements Serializable{
 
     private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idSetor;
+    @Getter private Long idSetor;
 
     @NotNull
     @NotEmpty
-    private String nome;
-
-    
-    public Setor() {
-    	
-    }
-    
-    
-    public Setor(Long idSetor, @NotNull @NotEmpty String nome) {
-		super();
-		this.idSetor = idSetor;
-		this.nome = nome;
-	}
-
-	
-	public Long getIdSetor() {
-		return idSetor;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-    
+    @Getter @Setter String nome;      
 }
