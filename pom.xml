@@ -78,17 +78,13 @@
             <id>dev</id>
             <properties>
                 <activatedProperties>dev</activatedProperties>
-            </properties>
-            
+            </properties>            
         </profile>
         <profile>
             <id>prod</id>
             <properties>
                 <activatedProperties>prod</activatedProperties>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+            </properties>            
         </profile>
     </profiles>
     
