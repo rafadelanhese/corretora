@@ -2,6 +2,8 @@ package com.delanhese.corretora.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +41,7 @@ public class SetorServiceImpl implements ISetorService{
 			setorRepository.save(setor);
 			return ResponseEntity.ok().build();
 		}catch (Exception e) {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.badRequest().build();
 		}		
 	}
 	

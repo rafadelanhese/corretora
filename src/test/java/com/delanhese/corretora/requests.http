@@ -1,19 +1,17 @@
-http://localhost:8080/setor
+GET http://localhost:8080/setor
 ###
-GET http://localhost:8080/setor/1
-
 POST http://localhost:8080/setor HTTP/1.1
 content-type: application/json
 
 {        
-    "nome" : "Inserir Teste"
+    "nome" : "Teste"
 }
 ###
-PUT  http://localhost:8080/setor/2 HTTP/1.1
+PUT  http://localhost:8080/setor/657 HTTP/1.1
 content-type: application/json
 
 {
-    "nome" : "SETOR UPDATE 2"
+    "nome" : "Teste Update"
 }
 ###
-DELETE  http://localhost:8080/setor/2
+DELETE  http://localhost:8080/setor/655

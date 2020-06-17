@@ -31,20 +31,20 @@ public class SetorController {
         this.setorService = setorService;
     }
 
+    @GetMapping    
+    public ResponseEntity<List<Setor>> findAll() {
+        return setorService.findAll();
+    }
+    
     @GetMapping(path = PATH_ID, produces = "application/json")
     public ResponseEntity<Setor> findById(@PathVariable Long id) {
         return setorService.findById(id);
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody @Valid Setor setor) {
+    public ResponseEntity<?> create(@Valid @RequestBody Setor setor) {
         return setorService.save(setor);
-    }
-     
-    @GetMapping    
-    public ResponseEntity<List<Setor>> findAll() {
-        return setorService.findAll();
-    }
+    }   
 
     @PutMapping(value = PATH_ID)
     public ResponseEntity<Setor> update(@PathVariable("id") Long id, @RequestBody Setor setor) {

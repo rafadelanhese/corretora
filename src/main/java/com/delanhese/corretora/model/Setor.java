@@ -35,5 +35,10 @@ public class Setor implements Serializable{
     @NotNull(message = "{nome.not.null}")
     @NotEmpty(message = "{nome.not.empty}")
     @Size(min=4,max=20,message="{nome.size}")
-    @Getter @Setter String nome;      
+    @Getter @Setter String nome;     
+    
+    
+    public Setor(String nome){
+        this.nome = nome;
+    }
 }
