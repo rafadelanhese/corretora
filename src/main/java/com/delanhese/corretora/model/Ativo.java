@@ -23,7 +23,7 @@ public abstract class Ativo implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter private Long idSetor;
+    @Getter private Long idAtivo;
 
     @NotNull(message = "{nomePregao.not.null}")
     @NotEmpty(message = "{nomePregao.not.empty}")
@@ -37,5 +37,9 @@ public abstract class Ativo implements Serializable{
     @NotNull(message = "{segmento.not.null}")
     @NotEmpty(message = "{segmento.not.empty}")
     private Segmento segmento;
+
+    @NotNull(message = "{setor.not.null}")
+    @NotEmpty(message = "{setor.not.empty}")
+    private Setor setor;
     
 }
