@@ -1,6 +1,7 @@
 package com.delanhese.corretora.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,4 +44,5 @@ public abstract class Ativo implements Serializable{
     @NotEmpty(message = "{setor.not.empty}")
     @Getter @Setter private Setor setor;
     
+    @Getter @Setter private List<Aporte> listaAportes;
 }
