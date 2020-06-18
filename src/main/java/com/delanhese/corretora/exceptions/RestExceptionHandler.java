@@ -3,9 +3,6 @@ package com.delanhese.corretora.exceptions;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.delanhese.corretora.model.ErrorResponse;
-import com.delanhese.corretora.model.ObjectError;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

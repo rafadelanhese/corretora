@@ -1,4 +1,4 @@
-package com.delanhese.corretora.model;
+package com.delanhese.corretora.exceptions;
 
 import java.util.List;
 
