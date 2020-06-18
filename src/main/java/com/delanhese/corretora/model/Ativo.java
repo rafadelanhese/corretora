@@ -13,6 +13,7 @@ import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @AllArgsConstructor
@@ -27,19 +28,19 @@ public abstract class Ativo implements Serializable{
 
     @NotNull(message = "{nomePregao.not.null}")
     @NotEmpty(message = "{nomePregao.not.empty}")
-    private String nomePregao;
+    @Getter @Setter private String nomePregao;
 
     @NotNull(message = "{ticker.not.null}")
     @NotEmpty(message = "{ticker.not.empty}")
     @Size(min=4,max=4, message="{ticker.size}")
-    private String ticker;
+    @Getter @Setter private String ticker;
 
     @NotNull(message = "{segmento.not.null}")
     @NotEmpty(message = "{segmento.not.empty}")
-    private Segmento segmento;
+    @Getter @Setter private Segmento segmento;
 
     @NotNull(message = "{setor.not.null}")
     @NotEmpty(message = "{setor.not.empty}")
-    private Setor setor;
+    @Getter @Setter private Setor setor;
     
 }
