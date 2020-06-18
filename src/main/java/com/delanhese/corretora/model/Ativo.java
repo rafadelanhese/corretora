@@ -3,10 +3,7 @@ package com.delanhese.corretora.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -44,5 +41,9 @@ public abstract class Ativo implements Serializable{
     @NotEmpty(message = "{setor.not.empty}")
     @Getter @Setter private Setor setor;
     
+    @ManyToMany
+    @JoinTable(name="ativo_aporte", joinColumns=
+    {@JoinColumn(name="idAtivo")}, inverseJoinColumns=
+    {@JoinColumn(name="idAporte")})
     @Getter @Setter private List<Aporte> listaAportes;
 }
