@@ -20,27 +20,13 @@ public class SetorServiceImpl implements ISetorService{
 	
 	@Override
 	public ResponseEntity<List<Setor>> findAll() {
-		try {
-		  List<Setor> lista = setorRepository.findAll();
-
-	      if (lista.isEmpty()) {	        
-	        return ResponseEntity.noContent().build();
-	      }
-	      return ResponseEntity.ok().body(lista);
-	      
-	    } catch (Exception e) {	    	
-	    	return ResponseEntity.notFound().build();
-	    }
+		return ResponseEntity.ok().body(setorRepository.findAll());			
 	}
 
 	@Override
 	public ResponseEntity<?> save(Setor setor) {
-		try {
-			setorRepository.save(setor);
-			return ResponseEntity.ok().build();
-		}catch (Exception e) {
-			return ResponseEntity.badRequest().build();
-		}		
+		setorRepository.save(setor);
+		return ResponseEntity.ok().build();
 	}
 	
 	@Override
