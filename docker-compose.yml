@@ -1,19 +1,42 @@
-version: "3.5"
+version: "3.8"
 services:
-  db:
-    image: mysql:8
-    restart: always
+  postgres-docker-container:
+    image: postgres 
+    container_name: postgres-docker-container     
+    networks:
+      - postgres-network
+      - app-postgres        
     environment:
-    - MYSQL_ROOT_PASSWORD=root
-    - MYSQL_DATABASE=db_corretora
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: db_corretora    
     ports:
-      - 3306:3306
-  backend:
-    build: .
+      - 5432:5432     
+  pgadmin:
+    image: dpage/pgadmin4
+    networks:
+      - postgres-network 
+    environment: 
+      - PGADMIN_DEFAULT_EMAIL=rdmmail-1@yahoo.com.br
+      - PGADMIN_DEFAULT_PASSWORD=123456
+    ports:
+      - 15432:80
+  backend:    
+    container_name: app-springboot-postgresql
+    restart: always
     depends_on:
-      - db
+      - postgres-docker-container 
+    build: . 
+    networks: 
+      - app-postgres            
     ports:
       - 8080:8080
-    environment:
-      - ROOT_USER=root
-      - ROOT_PASSWORD=root
+    environment: 
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-docker-container:5432/db_corretora
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password  
+networks:
+  postgres-network:
+    driver: bridge
+  app-postgres:
+    driver: bridge
